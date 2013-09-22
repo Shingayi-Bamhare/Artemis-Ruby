@@ -1,6 +1,3 @@
-require "artemis/component"
+require "artemis/entity"
 
-module Artemis
-  puts Component.new
-end
-
+puts "Required artemis"
