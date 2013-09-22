@@ -6,11 +6,13 @@ Gem::Specification.new do |s|
   s.description = "A Ruby port of Artemis (an high performance Entity System Framework for games)"
   s.authors     = ["Stefan Nguyen"]
   s.email       = 'stefan@vinova.sg'
-  s.files       = [
-    "lib/artemis.rb",
-    "lib/artemis/component.rb",
-  ]
-  s.homepage    =
-    'http://vinova.sg'
-  s.license       = 'BSD'
+
+  # Automatically load all files into gem
+  # thanks https://github.com/rubymotion/Joybox/blob/master/joybox.gemspec
+  s.files       = `git ls-files`.split($\)
+  
+  s.homepage    = 'http://vinova.sg'
+  s.license     = 'BSD'
+
+  s.add_development_dependency 'rspec'
 end
