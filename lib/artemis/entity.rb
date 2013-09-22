@@ -27,5 +27,9 @@ module Artemis
       @component_bits.clear(*(0..@component_bits.size-1).to_a)
       @uuid = SecureRandom.uuid
     end
+
+    def to_s
+      "Entity[#{@id}]"
+    end
   end
 end

@@ -35,4 +35,10 @@ describe Artemis::Entity do
       @entity.component_bits.should be_clear(*(0..@entity.component_bits.size-1).to_a)
     end
   end
+
+  context "#to_s" do
+    it "generate string in format Entity[id]" do
+      @entity.to_s.should eq "Entity[#{@entity.id}]"
+    end
+  end
 end
