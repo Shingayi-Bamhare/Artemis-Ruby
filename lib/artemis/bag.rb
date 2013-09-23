@@ -33,7 +33,7 @@ module Artemis
     end
 
     def each_entity
-      each_value
+      self.each_value
     end
   end
 end
