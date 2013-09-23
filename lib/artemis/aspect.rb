@@ -17,6 +17,14 @@ module Artemis
   # is the same as:
   # Aspect.get_aspect_for_all(A.class, B.class, C.class).exclude(U.class, V.class).one(X.class, Y.class, Z.class)
   class Aspect
-    
+    attr_reader :all_set, :exclusion_set, :one_set
+
+    def initialize
+      @all_set = Bitset.new 8
+      @exclusion_set = Bitset.new 8
+      @one_set = Bitset.new 8
+    end  
+
+
   end
 end
