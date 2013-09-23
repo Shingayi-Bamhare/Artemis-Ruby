@@ -8,5 +8,6 @@ require 'artemis/bag'
 require 'artemis/world'
 require 'artemis/manager'
 require 'artemis/entity_manager'
+require 'artemis/group_manager'
 
 puts "Required artemis"

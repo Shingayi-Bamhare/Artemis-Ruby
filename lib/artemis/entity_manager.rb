@@ -9,7 +9,7 @@ module Artemis
       @active = @added = @created = @deleted = 0
     end
 
-    def create_entity(world)
+    def create_entity
       e = Entity.new(world)
       @created += 1
       e
