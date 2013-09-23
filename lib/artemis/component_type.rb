@@ -31,6 +31,10 @@ module Artemis
       "ComponentType[#{ type.to_s }](#{ index })"
     end
 
+    def self.index_for(klass)
+      type_for(klass).index
+    end
+
     def self.next_index
       @@next_index
     end
