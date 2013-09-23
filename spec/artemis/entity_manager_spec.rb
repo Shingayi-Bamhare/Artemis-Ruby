@@ -19,9 +19,9 @@ describe Artemis::EntityManager do
     em.deleted.should == 0
     em.added.should == 0
 
-    w = Artemis::World.new
-    e1 = em.create_entity(w)
-    e2 = em.create_entity(w)
+    em.world = Artemis::World.new    
+    e1 = em.create_entity
+    e2 = em.create_entity
     em.get_entity(e1.id).should be_nil
     em.get_entity(e2.id).should be_nil
 
