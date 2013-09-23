@@ -12,7 +12,7 @@ describe Artemis::Entity do
   end
 
   before :each do
-    @entity = Artemis::Entity.new @world, Random.rand(1000)
+    @entity = Artemis::Entity.new @world
   end
 
   it "have a random UUID by default" do
@@ -92,4 +92,5 @@ describe Artemis::Entity do
       @entity.remove_component(Artemis::Component.new).should eq @entity
     end
   end
+  
 end
