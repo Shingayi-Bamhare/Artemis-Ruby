@@ -1,5 +1,3 @@
-require 'helpers/class_level_inheritable_attributes'
-
 require "artemis/entity"
 require "artemis/component"
 require "artemis/component_type"

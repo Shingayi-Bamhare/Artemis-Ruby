@@ -2,10 +2,12 @@ require 'spec_helper'
 
 describe Artemis::EntityManager do
 
-  it "have same world with Manager" do
-    Artemis::EntityManager.world.should == Artemis::Manager.world
+  it "can have diff worlds" do
     em = Artemis::EntityManager.new
-    em.world.should == Artemis::Manager.world
+    m = Artemis::Manager.new
+    m.world = Artemis::World.new
+    em.world = Artemis::World.new
+    em.world.should_not == m.world
   end
 
 end

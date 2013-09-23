@@ -1,13 +1,7 @@
 module Artemis
   class Manager
 
-    include ClassLevelInheritableAttributes
-    inheritable_attributes :world
-    @world = World.new
-
-    def world
-      self.class.world
-    end
+    attr_accessor :world
 
     def added(entity); end
     def changed(entity); end

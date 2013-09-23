@@ -16,7 +16,7 @@ A Ruby port of [Artemis](http://gamadu.com/artemis/) (an high performance Entity
 - [ ] EntityManager.java
 - [x] EntityObserver.java _don't see it's neccessary_
 - [ ] EntitySystem.java
-- [x] Manager.java _don't see it's neccessary_
+- [x] Manager.java
 - [ ] World.java
 - [ ] managers/GroupManager.java
 - [ ] managers/PlayerManager.java

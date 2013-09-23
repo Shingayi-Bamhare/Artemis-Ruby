@@ -1,16 +1,12 @@
 require 'spec_helper'
 
 describe Artemis::Manager do
-  before do
-    @world = double('world',
-                   entity_manager: "entity_manager stub",
-                   component_manager: "component_manager stub"
-                   )
-  end
 
-  it "have same world" do
+  it "have world" do
+    w = Artemis::World.new
     m = Artemis::Manager.new
-    m.world.should == Artemis::Manager.world
+    m.world = w
+    m.world.should == w
   end
 
 end
