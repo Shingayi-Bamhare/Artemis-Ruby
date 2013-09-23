@@ -74,11 +74,13 @@ module Artemis
       component_bits = e.component_bits 
       # Check if the entity possesses ALL of the components defined in the aspect
       if (@all_set.cardinality != 0)  
+        i = 0
         @all_set.each do |bit|
           if (bit && !component_bits[i])
             interested = false
             break
           end
+          i += 1
         end
       end
 
