@@ -8,8 +8,9 @@ describe Artemis::Manager do
                    )
   end
 
-  it "have same world with sub-classes" do
-    Artemis::EntityManager.world.should == Artemis::Manager.world
+  it "have same world" do
+    m = Artemis::Manager.new
+    m.world.should == Artemis::Manager.world
   end
 
 end

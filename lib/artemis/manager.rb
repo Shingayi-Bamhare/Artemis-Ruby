@@ -5,6 +5,10 @@ module Artemis
     inheritable_attributes :world
     @world = World.new
 
+    def world
+      self.class.world
+    end
+
     def added(entity); end
     def changed(entity); end
     def deleted(entity); end
