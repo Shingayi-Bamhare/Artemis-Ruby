@@ -60,7 +60,7 @@ describe Artemis::GroupManager do
     gm.get_groups(e1).should == [g1, g2]
     gm.get_groups(e2).should == [g1]
 
-    gm.remove_from_all_groups(e1)
+    gm.deleted(e1)
     gm.any_group?(e1).should == false
     gm.any_group?(e2).should == true
     gm.in_group?(e1, g1).should == false

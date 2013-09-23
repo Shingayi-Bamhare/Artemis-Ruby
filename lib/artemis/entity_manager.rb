@@ -15,25 +15,37 @@ module Artemis
       e
     end
 
-    def add(e)
-      @active += 1
-      @added += 1
-      @entities.add(e)
+    def added(e = nil)
+      if e.nil?
+        @added
+      else
+        @active += 1
+        @added += 1
+        @entities.add(e)
+      end
     end
 
-    def disable(e)
-      @disabled[e.id] = true
+    def disabled(e = nil)
+      if e.nil?
+        @disabled
+      else
+        @disabled[e.id] = true
+      end
     end
 
-    def enable(e)
+    def enabled(e)
       !!@disabled.delete(e.id)
     end
 
-    def delete(e)
-      @entities.remove(e)
-      @disabled.delete(e.id)
-      @active -= 1
-      @deleted += 1
+    def deleted(e = nil)
+      if e.nil?
+        @deleted
+      else
+        @entities.remove(e)
+        @disabled.delete(e.id)
+        @active -= 1
+        @deleted += 1
+      end
     end
 
     def active?(entity_id)
