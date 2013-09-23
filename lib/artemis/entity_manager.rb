@@ -4,7 +4,7 @@ module Artemis
   class EntityManager < Manager
 
     def initialize
-      @entities = Hash.new
+      @entities = Bag.new
       @disabled = Bitset.new 1000
       @active = @added = @created = @deleted = 0
     end
@@ -15,10 +15,10 @@ module Artemis
       e
     end
 
-    def add_entity(e)
+    def added(e)
       active += 1
       added += 1
-      @entities[e.id] = e
+      @entities.add(e)
     end
 
   end

@@ -3,13 +3,13 @@ require 'spec_helper'
 describe Artemis::Entity do
   before do
     @world = double('world',
-                   entity_manager: "entity_manager stub",
-                   component_manager: "component_manager stub"
-                   )
+      entity_manager: "entity_manager stub",
+      component_manager: "component_manager stub"
+    )
   end
 
   before :each do
-    @entity = Artemis::Entity.new @world, Random.rand(1000)
+    @entity = Artemis::Entity.new @world
   end
 
   it "have a random UUID by default" do
