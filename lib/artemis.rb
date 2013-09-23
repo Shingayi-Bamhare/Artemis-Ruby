@@ -1,4 +1,5 @@
 require 'helpers/class_level_inheritable_attributes'
+require 'artemis/entity_observer'
 require 'artemis/manager'
 
 require "artemis/entity"
