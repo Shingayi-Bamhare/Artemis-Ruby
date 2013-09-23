@@ -12,6 +12,11 @@ module Artemis
       @groups_by_entity = {}
     end
 
+    def deleted(e)
+      remove_from_all_groups(e)
+    end
+
+    
     # e Entity, group String
     def add(e, group)
       get_entities(group) << e
@@ -27,10 +32,6 @@ module Artemis
       if (groups = @groups_by_entity.delete(e))
         groups.each{ |group| remove(e, group) }
       end
-    end
-
-    def delete(e)
-      remove_from_all_groups(e)
     end
 
     def get_entities(group)

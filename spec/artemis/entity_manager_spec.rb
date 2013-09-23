@@ -25,7 +25,7 @@ describe Artemis::EntityManager do
     em.get_entity(e1.id).should be_nil
     em.get_entity(e2.id).should be_nil
 
-    em.add(e1)
+    em.added(e1)
     em.active.should == 1
     em.created.should == 2
     em.deleted.should == 0
@@ -38,7 +38,7 @@ describe Artemis::EntityManager do
     em.should be_enable(e1.id)
     em.should be_enable(e2.id)
 
-    em.disable(e2)
+    em.disabled(e2)
     em.should_not be_enable(e2.id)
     em.active.should == 1
     em.created.should == 2
@@ -46,7 +46,7 @@ describe Artemis::EntityManager do
     em.added.should == 1
     em.get_entity(e1.id).should == e1
 
-    em.add(e2)
+    em.added(e2)
     em.active.should == 2
     em.created.should == 2
     em.deleted.should == 0
@@ -54,7 +54,7 @@ describe Artemis::EntityManager do
     em.get_entity(e1.id).should == e1
     em.get_entity(e2.id).should == e2
 
-    em.delete(e1)
+    em.deleted(e1)
     em.active.should == 1
     em.created.should == 2
     em.deleted.should == 1
