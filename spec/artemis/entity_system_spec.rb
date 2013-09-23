@@ -10,10 +10,9 @@ describe Artemis::EntitySystem do
       @aspect = Artemis::Aspect.new_for_all Artemis::Component
       @system = Artemis::EntitySystem.new @aspect
 
-      [:all, :exclude, :one].each do |bitset|
-        bitset = "#{bitset}_set".to_sym
-        @system.send(bitset) == @aspect.send(bitset)
-      end
+      @system.all_set.should == @aspect.all_set
+      @system.exclude_set.should == @aspect.exclude_set
+      @system.one_set.should == @aspect.one_set
     end
   end
 
