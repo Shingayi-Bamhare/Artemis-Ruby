@@ -10,4 +10,57 @@ describe Artemis::EntityManager do
     em.world.should_not == m.world
   end
 
+
+  it 'should work' do
+    em = Artemis::EntityManager.new
+    em.disabled.should == {}
+    em.active.should == 0
+    em.created.should == 0
+    em.deleted.should == 0
+    em.added.should == 0
+
+    w = Artemis::World.new
+    e1 = em.create_entity(w)
+    e2 = em.create_entity(w)
+    em.get_entity(e1.id).should be_nil
+    em.get_entity(e2.id).should be_nil
+
+    em.add(e1)
+    em.active.should == 1
+    em.created.should == 2
+    em.deleted.should == 0
+    em.added.should == 1
+    em.get_entity(e1.id).should == e1
+
+    em.should be_active(e1.id)
+    em.should_not be_active(e2.id)
+
+    em.should be_enable(e1.id)
+    em.should be_enable(e2.id)
+
+    em.disable(e2)
+    em.should_not be_enable(e2.id)
+    em.active.should == 1
+    em.created.should == 2
+    em.deleted.should == 0
+    em.added.should == 1
+    em.get_entity(e1.id).should == e1
+
+    em.add(e2)
+    em.active.should == 2
+    em.created.should == 2
+    em.deleted.should == 0
+    em.added.should == 2
+    em.get_entity(e1.id).should == e1
+    em.get_entity(e2.id).should == e2
+
+    em.delete(e1)
+    em.active.should == 1
+    em.created.should == 2
+    em.deleted.should == 1
+    em.added.should == 2
+    em.get_entity(e1.id).should == nil
+    em.get_entity(e2.id).should == e2
+  end
+
 end
