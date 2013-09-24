@@ -38,6 +38,8 @@ module Artemis
         components = Bag.new
         @components_by_type[component_type.index] = components
       end
+
+      components
     end
 
     def get_component(entity, component_type)
