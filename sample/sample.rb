@@ -7,7 +7,7 @@ class Sample
     puts "Hello World! This is sample!"
     @world = Artemis::World.new
 
-    @world.set_system MovementSystem.new
+    @world.set_system(MovementSystem.new).setup
 
     @world.create_entity(PositionComponent.new,
                          VelocityComponent.new,
@@ -46,6 +46,10 @@ end
 class MovementSystem < Artemis::EntityProcessingSystem
   def initialize
     super(Artemis::Aspect.new_for_all PositionComponent, VelocityComponent, RotationComponent)
+  end
+
+  def setup
+    @position_mapper = Artemis::ComponentMapper.new(PositionComponent, @world)
   end
 
   def process_entity(entity)

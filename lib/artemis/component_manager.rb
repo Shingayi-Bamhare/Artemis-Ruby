@@ -1,6 +1,5 @@
 module Artemis
   class ComponentManager < Manager
-    attr_reader :components_by_type, :deleted_entities
 
     def initialize
       @components_by_type = Bag.new

@@ -83,6 +83,9 @@ module Artemis
       system.world = self
       system.passive = passive
       @systems[system.class] = system
+
+      # return for chaining
+      system
     end
 
     def get_system(system_class)

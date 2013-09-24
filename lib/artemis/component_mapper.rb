@@ -8,7 +8,7 @@ module Artemis
       @component_type = ComponentType.type_for component_class
       @component_class = component_class 
 
-      @components = world.component_manager.components_by_type @component_type 
+      @components = world.component_manager.get_components_by_type @component_type 
     end
 
     # Fast but unsafe retrieval of a component for this entity.
