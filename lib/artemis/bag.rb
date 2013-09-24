@@ -13,5 +13,6 @@ module Artemis
       end
     end
 
+    alias_method :each, :each_value
   end
 end

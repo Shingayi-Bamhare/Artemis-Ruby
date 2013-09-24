@@ -1,7 +1,6 @@
 if defined?(Motion::Project::Config)
   Motion::Project::App.setup do |app|
     Dir.glob(File.join(File.dirname(__FILE__), 'artemis/*.rb')).each do |file|
-      puts file
       app.files.unshift(file)
     end
   end
