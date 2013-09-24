@@ -42,7 +42,7 @@ module Artemis
     # 
     # @param entities the entities this system contains.
     def process_entities(entities)
-      raise "implement me in subclass" 
+      raise "implement me in subclass"
     end
 
     # Check if this system can process
@@ -68,34 +68,26 @@ module Artemis
     def check(entity)
       return if @dummy
 
-      contains = entity.system_class_indices.include? self.system_index
+      component_class_indices = entity.component_class_indices
       interested = true # possibly interested, let's try to prove it wrong.
 
-      component_class_indices = entity.component_class_indices
       # Check if the entity possesses ALL of the components defined in the aspect
       interested = component_class_indices.each_cons(@all_set.size).include? @all_set
 
-      # Check if the entity possesses ANY of the exclusion components, if it does then the system is not interested.
-      if interested && !(@exclude_set & component_class_indices).empty?
-        interested = false
-      end  
+      # Then check if the entity possesses ANY of the exclusion components, if it does then the system is not interested.
+      interested &&= (@exclude_set & component_class_indices).empty?
 
-      # Check if the entity possesses ANY of the components in the oneSet. If so, the system is interested.
-      if interested && !@one_set.empty? && (@one_set & component_class_indices).empty?
-        interested = false
-      end  
+      # Then check if the entity possesses ANY of the components in the oneSet. If so, the system is interested.
+      interested &&= @one_set.empty? || !(@one_set & component_class_indices).empty?
 
-      contains = entity.system_class_indices.include? self.system_index
-      if interested && !contains
-        insert_to_system entity
-      elsif !interested && contains
-        remove_from_system entity
-      end
+      contains = entity.system_class_indices.include?(self.system_index)
+      insert_to_system(entity) if interested && !contains
+      remove_from_system(entity) if !interested && contains
     end
 
     def remove_from_system(entity)
       @active_entities.remove entity
-      entity.system_class_indices.delete @system_index 
+      entity.system_class_indices.delete @system_index
       removed entity
     end
 
@@ -143,6 +135,5 @@ module Artemis
       index
     end
   end
-
 
 end
