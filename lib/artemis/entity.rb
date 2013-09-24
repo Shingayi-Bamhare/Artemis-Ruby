@@ -1,4 +1,3 @@
-require 'bitset'
 require 'securerandom'
 
 module Artemis
@@ -6,22 +5,22 @@ module Artemis
   # create new entities using World.
 
   class Entity
-    attr_reader :world, :uuid, :system_bits, :component_bits
+    attr_reader :world, :uuid, :system_class_indices, :component_class_indices
 
     def initialize(world)
       @world = world
       @entity_manager = world.entity_manager
       @component_manager = world.component_manager
       @uuid = SecureRandom.uuid
-      @system_bits = Bitset.new 8
-      @component_bits = Bitset.new 8
+      @system_class_indices = Array.new
+      @component_class_indices = Array.new
     end
 
     # Make enitty ready for re-use.
     # Will generate a new uuid
     def reset
-      @system_bits.clear(*(0..@system_bits.size-1).to_a)
-      @component_bits.clear(*(0..@component_bits.size-1).to_a)
+      @system_class_indices.clear
+      @component_classes.clear
       @uuid = SecureRandom.uuid
     end
 

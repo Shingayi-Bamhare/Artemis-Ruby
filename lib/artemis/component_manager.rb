@@ -8,27 +8,26 @@ module Artemis
     end
 
     def remove_components_of_entity(entity)
-      component_bits = entity.component_bits
-      i = 0
-      component_bits.each do |bit|
-        @components_by_type[i][entity.id] = nil if bit
-        i += 1
+      component_class_indices = entity.component_class_indices
+
+      component_class_indices.each do |index|
+        @components_by_type[index][entity.id] = nil
       end
 
-      component_bits.clear(*(0..component_bits.size-1).to_a)
+      component_class_indices.clear
     end
 
     def add_component(entity, component_type, component)
       components = get_components_by_type component_type
       components[entity.id] = component
 
-      entity.component_bits.set component_type.index
+      entity.component_class_indices << component_type.index
     end
 
     def remove_component(entity, component_type)
-      if entity.component_bits[component_type.index] 
+      if entity.component_class_indicies.include? component_type.index
         @components_by_type[component_type.index][entity.id] = nil
-        e.component_bits.clear component_type.index
+        e.component_class_indices.delete component_type.index
       end
     end
 

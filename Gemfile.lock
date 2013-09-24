@@ -1,7 +1,6 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    bitset (0.1.0)
     codeclimate-test-reporter (0.1.1)
       simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.0.9)
@@ -35,7 +34,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bitset
   codeclimate-test-reporter
   pry
   rake

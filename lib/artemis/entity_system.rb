@@ -18,7 +18,7 @@ module Artemis
       @system_index = SystemIndexManager.index_for self.class
 
       # This system can't possibly be interested in any entity, so it must be "dummy"
-      @dummy = @all_set.cardinality == 0 && @one_set.cardinality == 0
+      @dummy = @all_set.empty? && @one_set.empty?
     end
 
     # Called before processing of entities begins
@@ -68,33 +68,24 @@ module Artemis
     def check(entity)
       return if @dummy
 
-      contains = entity.system_bits[@system_index]
+      contains = entity.system_class_indices.include? self.system_index
       interested = true # possibly interested, let's try to prove it wrong.
 
-      component_bits = entity.component_bits 
+      component_class_indices = entity.component_class_indices
       # Check if the entity possesses ALL of the components defined in the aspect
-      if (@all_set.cardinality != 0)  
-        i = 0
-        @all_set.each do |bit|
-          if (bit && !component_bits[i])
-            interested = false
-            break
-          end
-          i += 1
-        end
-      end
+      interested = component_class_indices.each_cons(@all_set.size).include? @all_set
 
       # Check if the entity possesses ANY of the exclusion components, if it does then the system is not interested.
-      if @exclude_set.cardinality != 0 && interested
-        interested = ((@exclude_set & component_bits).cardinality != 0)
+      if interested && !(@exclude_set & component_class_indices).empty?
+        interested = false
       end  
 
       # Check if the entity possesses ANY of the components in the oneSet. If so, the system is interested.
-      if @one_set.cardinality != 0 && interested
-        interested = (@one_set & component_bits).cardinality != 0
-      end
+      if interested && !@one_set.empty? && (@one_set & component_class_indices).empty?
+        interested = false
+      end  
 
-      contains = entity.system_bits[@system_index]
+      contains = entity.system_class_indices.include? self.system_index
       if interested && !contains
         insert_to_system entity
       elsif !interested && contains
@@ -104,13 +95,13 @@ module Artemis
 
     def remove_from_system(entity)
       @active_entities.remove entity
-      entity.system_bits.clear @system_index 
+      entity.system_class_indices.delete @system_index 
       removed entity
     end
 
     def insert_to_system(entity)
       @active_entities.add entity
-      entity.system_bits.set @system_index
+      entity.system_class_indices << @system_index
       inserted entity 
     end
 

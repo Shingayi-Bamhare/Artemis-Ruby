@@ -4,11 +4,6 @@ describe Artemis::Aspect do
   before :each do
     @aspect = Artemis::Aspect.new
   end
-  it "init all_set, exclude_set and one_set" do
-    @aspect.all_set.should be_a Bitset
-    @aspect.exclude_set.should be_a Bitset
-    @aspect.one_set.should be_a Bitset
-  end
 
   [:all, :exclude, :one].each do |func|
     context "#{func}" do
@@ -19,8 +14,7 @@ describe Artemis::Aspect do
         expect { @aspect.send func, Artemis::Component, Artemis::Component }.to_not raise_error
       end
 
-      # TODO test bitset logic here
-      it "turn on appropriate bit" do
+      it "add component indices into set" do
         class Component1 < Artemis::Component
         end
         class Component2 < Artemis::Component
@@ -29,10 +23,10 @@ describe Artemis::Aspect do
         end
 
         @aspect.send func, Component1, Component2
-        bitset = @aspect.send("#{func}_set".to_sym)
-        bitset[Artemis::ComponentType.index_for Component1].should be_true
-        bitset[Artemis::ComponentType.index_for Component2].should be_true
-        bitset[Artemis::ComponentType.index_for Component3].should be_false
+        set = @aspect.send("#{func}_set".to_sym)
+        set.include?(Artemis::ComponentType.index_for Component1).should be_true
+        set.include?(Artemis::ComponentType.index_for Component2).should be_true
+        set.include?(Artemis::ComponentType.index_for Component3).should be_false
       end
 
       it "return itself" do

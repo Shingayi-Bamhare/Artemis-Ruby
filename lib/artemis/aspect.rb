@@ -20,9 +20,9 @@ module Artemis
     attr_reader :all_set, :exclude_set, :one_set
 
     def initialize
-      @all_set = Bitset.new 8
-      @exclude_set = Bitset.new 8
-      @one_set = Bitset.new 8
+      @all_set = Array.new
+      @exclude_set = Array.new
+      @one_set = Array.new
     end  
 
     def array_from_argument_list(arg_list)
@@ -38,11 +38,11 @@ module Artemis
     # @param component_classes array of component classes to be added to set
     # @param set the set to be operated on
     # @return itself to be chained
-    def add_component_classes_to_set(component_classes, bitset)
+    def add_component_classes_to_set(component_classes, set)
       component_classes.each do |component_class|
         raise "#{component_class.to_s} is not a subclass of Component" if !component_class.is_a?(Class) || !(component_class <= Component)
 
-        bitset.set ComponentType.index_for component_class
+        set << ComponentType.index_for(component_class)
       end 
 
       self
