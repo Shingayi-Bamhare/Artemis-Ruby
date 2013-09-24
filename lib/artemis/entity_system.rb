@@ -90,7 +90,7 @@ module Artemis
       end  
 
       # Check if the entity possesses ANY of the components in the oneSet. If so, the system is interested.
-      if (@one_set.cardinality != 0)
+      if @one_set.cardinality != 0 && interested
         interested = (@one_set & component_bits).cardinality != 0
       end
 
