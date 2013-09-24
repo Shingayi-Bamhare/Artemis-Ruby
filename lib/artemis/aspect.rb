@@ -17,6 +17,73 @@ module Artemis
   # is the same as:
   # Aspect.get_aspect_for_all(A.class, B.class, C.class).exclude(U.class, V.class).one(X.class, Y.class, Z.class)
   class Aspect
-    
+    attr_reader :all_set, :exclude_set, :one_set
+
+    def initialize
+      @all_set = Bitset.new 8
+      @exclude_set = Bitset.new 8
+      @one_set = Bitset.new 8
+    end  
+
+    def array_from_argument_list(arg_list)
+      raise "must have at least 1 argument" if arg_list.length <= 0
+
+      arg_list = arg_list[0] if arg_list.length == 1 && arg_list[0].is_a?(Array)
+
+      arg_list
+    end
+
+    # Add a bunch of component classes into a set
+    #
+    # @param component_classes array of component classes to be added to set
+    # @param set the set to be operated on
+    # @return itself to be chained
+    def add_component_classes_to_set(component_classes, bitset)
+      component_classes.each do |component_class|
+        raise "#{component_class.to_s} is not a subclass of Component" if !component_class.is_a?(Class) || !(component_class <= Component)
+
+        bitset.set ComponentType.index_for component_class
+      end 
+
+      self
+    end
+
+    # Returns an aspect where an entity must possess all of the specified component types.
+    #
+    # @param component_classes required component classes
+    # @return an aspect that can be matched against entities
+    def all(*component_classes)
+      add_component_classes_to_set array_from_argument_list(component_classes), @all_set
+    end
+
+    # Excludes all of the specified component types from the aspect. A system will not be
+    # interested in an entity that possesses one of the specified exclude component types.
+    # 
+    # @param component_classes component classes to exclude
+    # @return an aspect that can be matched against entities
+    def exclude(*component_classes)
+      add_component_classes_to_set array_from_argument_list(component_classes), @exclude_set
+    end
+
+    # Returns an aspect where an entity must possess one of the specified component types.
+    #
+    # @param component_classes one of the component classes the entity must possess
+    # @return an aspect that can be matched against entities
+    def one(*component_classes)
+      add_component_classes_to_set array_from_argument_list(component_classes), @one_set
+    end
+
+    ### Factories
+    def self.new_for_all(*component_classes)
+      Aspect.new.all component_classes
+    end
+
+    def self.new_for_one(*component_classes)
+      Aspect.new.one component_classes
+    end
+
+    def self.new_empty
+      Aspect.new
+    end
   end
 end
