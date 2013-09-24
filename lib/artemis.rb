@@ -5,8 +5,9 @@ require 'artemis/manager'
 require "artemis/entity"
 require "artemis/component"
 require "artemis/component_type"
-require "artemis/aspect"
+require 'artemis/component_mapper'
 require 'artemis/component_manager'
+require "artemis/aspect"
 
 require 'artemis/bag'
 require 'artemis/world'

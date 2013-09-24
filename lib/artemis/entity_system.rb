@@ -11,14 +11,14 @@ module Artemis
       @active_entities = Bag.new
 
       @aspect = aspect
-      [:all, :exclude, :one].each do |bitset|
-        bitset = "#{bitset}_set".to_sym
-        self.instance_variable_set("@#{bitset}".to_sym, @aspect.send(bitset))
-      end
+      @all_set = aspect.all_set
+      @exclude_set = aspect.exclude_set
+      @one_set = aspect.one_set
 
       @system_index = SystemIndexManager.index_for self.class
 
-      @dummy = @all_set.cardinality == 0 && @one_set.cardinality == 0 # This system can't possibly be interested in any entity, so it must be "dummy"
+      # This system can't possibly be interested in any entity, so it must be "dummy"
+      @dummy = @all_set.cardinality == 0 && @one_set.cardinality == 0
     end
 
     # Called before processing of entities begins
@@ -74,11 +74,13 @@ module Artemis
       component_bits = e.component_bits 
       # Check if the entity possesses ALL of the components defined in the aspect
       if (@all_set.cardinality != 0)  
+        i = 0
         @all_set.each do |bit|
           if (bit && !component_bits[i])
             interested = false
             break
           end
+          i += 1
         end
       end
 
@@ -92,6 +94,7 @@ module Artemis
         interested = (@one_set & component_bits).cardinality != 0
       end
 
+      contains = e.system_bits[@system_index]
       if interested && !contains
         insert_to_system entity
       elsif !interested && contains
@@ -146,7 +149,6 @@ module Artemis
 
         @@indices[klass] = index
       end
-
       index
     end
   end
