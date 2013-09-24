@@ -13,6 +13,7 @@ module Artemis
       end
     end
 
+    # Use each_pair instead of each
     alias_method :each, :each_value
   end
 end
