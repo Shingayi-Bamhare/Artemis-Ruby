@@ -1,18 +1,19 @@
 require 'spec_helper'
 
 describe Artemis::Entity do
-  before do
-    component_manager = double("component_manager",
-                               add_component: "add_component",
-                               remove_component: "remove_component" )
-    @world = double('world',
-                   entity_manager: "entity_manager stub",
-                   component_manager: component_manager
-                   )
-  end
 
   before :each do
-    @entity = Artemis::Entity.new @world
+    component_manager = double("component_manager",
+      add_component: "add_component",
+      remove_component: "remove_component"
+    )
+
+    world = double('world',
+      entity_manager: "entity_manager stub",
+      component_manager: component_manager
+    )
+
+    @entity = Artemis::Entity.new world
   end
 
   it "have a random UUID by default" do
