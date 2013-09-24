@@ -1,5 +1,4 @@
 require 'bitset'
-require 'securerandom'
 
 module Artemis
   # The entity class. Cannot be instantiated outside the framework, you must
@@ -8,11 +7,16 @@ module Artemis
   class Entity
     attr_reader :world, :uuid, :system_bits, :component_bits
 
+    BIG_N = 1_000_000
+    def gen_uuid
+      (Time.now.to_f * BIG_N).to_i * BIG_N + rand(BIG_N)
+    end
+
     def initialize(world)
       @world = world
       @entity_manager = world.entity_manager
       @component_manager = world.component_manager
-      @uuid = SecureRandom.uuid
+      @uuid = gen_uuid
       @system_bits = Bitset.new 8
       @component_bits = Bitset.new 8
     end
@@ -22,7 +26,7 @@ module Artemis
     def reset
       @system_bits.clear(*(0..@system_bits.size-1).to_a)
       @component_bits.clear(*(0..@component_bits.size-1).to_a)
-      @uuid = SecureRandom.uuid
+      @uuid = gen_uuid
     end
 
     def id

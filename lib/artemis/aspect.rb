@@ -23,7 +23,7 @@ module Artemis
       @all_set = Bitset.new 8
       @exclude_set = Bitset.new 8
       @one_set = Bitset.new 8
-    end  
+    end
 
     def array_from_argument_list(arg_list)
       raise "must have at least 1 argument" if arg_list.length <= 0
