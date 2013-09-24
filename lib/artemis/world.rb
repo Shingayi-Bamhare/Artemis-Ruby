@@ -67,8 +67,8 @@ module Artemis
       @disabled.add(e)
     end
 
-    def create_entity
-      @em.create_entity
+    def create_entity(*components)
+      @em.create_entity(*components)
     end
 
     def get_entity(entity_id)
@@ -99,11 +99,13 @@ module Artemis
           # puts method_name
           # puts self.send(method_name).values
           self.send(method_name).each_value do |entity|
-            # puts "---------\n#{observer}\n-------"
-            # puts "---------\n#{entity}\n-------"
             observer.send(method_name, entity)
           end
         end
+      end
+
+      @systems.values.each do |system|
+        system.process unless system.passive
       end
     end
 

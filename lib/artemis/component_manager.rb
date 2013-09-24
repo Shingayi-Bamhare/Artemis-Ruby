@@ -21,6 +21,8 @@ module Artemis
     def add_component(entity, component_type, component)
       components = get_components_by_type component_type
       components[entity.id] = component
+
+      entity.component_bits.set component_type.index
     end
 
     def remove_component(entity, component_type)

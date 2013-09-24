@@ -1,8 +1,8 @@
 module Artemis
   class EntitySystem < EntityObserver
-    attr_reader :world, :active_entities, :aspect, :system_index
+    attr_reader :active_entities, :aspect, :system_index
     attr_reader :all_set, :exclude_set, :one_set
-    attr_accessor :passive
+    attr_accessor :world, :passive
     attr_reader :dummy
 
     # Creates an entity system that uses the specified aspect as a matcher against entities.
@@ -64,14 +64,14 @@ module Artemis
 
     # Will check if the entity is of interest to this system.
     #
-    # @param e entity to check
+    # @param entity entity to check
     def check(entity)
       return if @dummy
 
-      contains = e.system_bits[@system_index]
+      contains = entity.system_bits[@system_index]
       interested = true # possibly interested, let's try to prove it wrong.
 
-      component_bits = e.component_bits 
+      component_bits = entity.component_bits 
       # Check if the entity possesses ALL of the components defined in the aspect
       if (@all_set.cardinality != 0)  
         i = 0
@@ -94,7 +94,7 @@ module Artemis
         interested = (@one_set & component_bits).cardinality != 0
       end
 
-      contains = e.system_bits[@system_index]
+      contains = entity.system_bits[@system_index]
       if interested && !contains
         insert_to_system entity
       elsif !interested && contains

@@ -49,6 +49,12 @@ module Artemis
       self
     end
 
+    def add_components(*components)
+      components.each do |component|
+        add_component component
+      end 
+    end
+
     # Removes the component from this entity
     #
     # @param obj can be either the component to be removed or

@@ -18,5 +18,6 @@ require 'artemis/tag_manager'
 require 'artemis/aspect'
 
 require 'artemis/entity_system'
+require 'artemis/entity_processing_system'
 
 puts "Required artemis"

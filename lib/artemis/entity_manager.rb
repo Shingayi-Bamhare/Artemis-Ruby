@@ -9,8 +9,9 @@ module Artemis
       @active = @added = @created = @deleted = 0
     end
 
-    def create_entity
-      e = Entity.new(world)
+    def create_entity(*components)
+      e = Entity.new(@world)
+      e.add_components(*components)
       @created += 1
       e
     end
