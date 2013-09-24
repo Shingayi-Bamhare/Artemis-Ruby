@@ -23,7 +23,7 @@ module Artemis
       @all_set = Array.new
       @exclude_set = Array.new
       @one_set = Array.new
-    end  
+    end
 
     def array_from_argument_list(arg_list)
       raise "must have at least 1 argument" if arg_list.length <= 0

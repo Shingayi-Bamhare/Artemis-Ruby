@@ -96,8 +96,6 @@ module Artemis
     def process
       (@managers.values + @systems.values).each do |observer|
         [:added, :changed, :deleted, :enabled, :disabled].each do |method_name|
-          # puts method_name
-          # puts self.send(method_name).values
           self.send(method_name).each_value do |entity|
             observer.send(method_name, entity)
           end

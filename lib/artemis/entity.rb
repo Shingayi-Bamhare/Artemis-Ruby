@@ -1,5 +1,3 @@
-require 'securerandom'
-
 module Artemis
   # The entity class. Cannot be instantiated outside the framework, you must
   # create new entities using World.
@@ -7,21 +5,26 @@ module Artemis
   class Entity
     attr_reader :world, :uuid, :system_class_indices, :component_class_indices
 
+    BIG_N = 1_000_000
+    def gen_uuid
+      (Time.now.to_f * BIG_N).to_i * BIG_N + rand(BIG_N)
+    end
+
     def initialize(world)
       @world = world
       @entity_manager = world.entity_manager
       @component_manager = world.component_manager
-      @uuid = SecureRandom.uuid
       @system_class_indices = Array.new
       @component_class_indices = Array.new
+      @uuid = gen_uuid
     end
 
     # Make enitty ready for re-use.
     # Will generate a new uuid
     def reset
       @system_class_indices.clear
-      @component_classes.clear
-      @uuid = SecureRandom.uuid
+      @component_classes_indices.clear
+      @uuid = gen_uuid
     end
 
     def id
