@@ -97,12 +97,15 @@ module Artemis
     end
 
     def process
-      (@managers.values + @systems.values).each do |observer|
-        [:added, :changed, :deleted, :enabled, :disabled].each do |method_name|
-          self.send(method_name).each_value do |entity|
+      [:added, :changed, :deleted, :enabled, :disabled].each do |method_name|
+        bag = self.send(method_name)
+        bag.each_value do |entity|
+          (@managers.values + @systems.values).each do |observer|
             observer.send(method_name, entity)
           end
         end
+
+        bag.clear
       end
 
       @systems.values.each do |system|
