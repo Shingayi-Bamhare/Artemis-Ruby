@@ -24,7 +24,7 @@ module Artemis
     end
 
     def remove_component(entity, component_type)
-      if entity.component_class_indicies.include? component_type.index
+      if entity.component_class_indices.include? component_type.index
         @components_by_type[component_type.index][entity.id] = nil
         e.component_class_indices.delete component_type.index
       end

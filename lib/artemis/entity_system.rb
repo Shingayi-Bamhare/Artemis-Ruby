@@ -72,13 +72,15 @@ module Artemis
       interested = true # possibly interested, let's try to prove it wrong.
 
       # Check if the entity possesses ALL of the components defined in the aspect
-      interested = component_class_indices.each_cons(@all_set.size).include? @all_set
+      interested = (@all_set.uniq - component_class_indices.uniq).empty?
 
       # Then check if the entity possesses ANY of the exclusion components, if it does then the system is not interested.
       interested &&= (@exclude_set & component_class_indices).empty?
 
       # Then check if the entity possesses ANY of the components in the oneSet. If so, the system is interested.
       interested &&= @one_set.empty? || !(@one_set & component_class_indices).empty?
+
+      puts "check #{entity} #{entity.component_class_indices} against #{self} [all: #{@all_set}, exclude: #{@exclude_set}, one: #{@one_set}] => #{interested}"
 
       contains = entity.system_class_indices.include?(self.system_index)
       insert_to_system(entity) if interested && !contains

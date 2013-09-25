@@ -20,3 +20,6 @@ doc/
 # Vim
 *.swp
 *.swo
+
+# ctags
+tags
