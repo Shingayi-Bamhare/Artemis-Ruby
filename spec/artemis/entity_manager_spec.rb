@@ -35,11 +35,11 @@ describe Artemis::EntityManager do
     em.should be_active(e1.id)
     em.should_not be_active(e2.id)
 
-    em.should be_enable(e1.id)
-    em.should be_enable(e2.id)
+    em.should be_is_enabled(e1.id)
+    em.should be_is_enabled(e2.id)
 
     em.disabled(e2)
-    em.should_not be_enable(e2.id)
+    em.should_not be_is_enabled(e2.id)
     em.active.should == 1
     em.created.should == 2
     em.deleted.should == 0
