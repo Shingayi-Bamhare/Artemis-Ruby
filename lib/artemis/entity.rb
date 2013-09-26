@@ -113,10 +113,11 @@ module Artemis
       component_type = ComponentType.type_for obj if obj.is_a?(Class) && obj <= Component
 
       if component_type
-        @component_manager.get_component self, component_type 
+        return @component_manager.get_component self, component_type 
       else
         raise "#{obj.to_s} is neither a ComponentType object nor an Component subclass"
       end
+
     end
 
     def get_components

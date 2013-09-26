@@ -43,9 +43,7 @@ module Artemis
 
     def get_component(entity, component_type)
       components = @components_by_type[component_type.index] 
-      unless components
-        return components[entity.id]
-      end
+      return components[entity.id] if components
       nil
     end
 
