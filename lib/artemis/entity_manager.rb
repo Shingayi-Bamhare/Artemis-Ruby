@@ -53,7 +53,7 @@ module Artemis
       !!@entities[entity_id]
     end
 
-    def enable?(entity_id)
+    def is_enabled?(entity_id)
       !disabled[entity_id]
     end
 
