@@ -80,7 +80,7 @@ module Artemis
       # Then check if the entity possesses ANY of the components in the oneSet. If so, the system is interested.
       interested &&= @one_set.empty? || !(@one_set & component_class_indices).empty?
 
-      puts "check #{entity} #{entity.component_class_indices} against #{self} [all: #{@all_set}, exclude: #{@exclude_set}, one: #{@one_set}] => #{interested}"
+      puts "check #{entity} #{entity.component_class_indices} against #{self} [all: #{@all_set}, exclude: #{@exclude_set}, one: #{@one_set}] => #{interested}" if @world.debug
 
       contains = entity.system_class_indices.include?(self.system_index)
       insert_to_system(entity) if interested && !contains

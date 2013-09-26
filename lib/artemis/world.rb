@@ -11,10 +11,13 @@ end
 module Artemis
   # It all started from a world
   class World
+    attr_accessor :debug
     attr_accessor :delta
     attr_reader :added, :changed, :deleted, :enabled, :disabled
 
     def initialize
+      @debug = false
+
       # a world has many managers
       @managers = {}
       @systems = {}
