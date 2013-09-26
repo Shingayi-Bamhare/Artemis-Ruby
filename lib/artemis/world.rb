@@ -1,3 +1,13 @@
+class String
+ def underscore
+    self.gsub(/::/, '/').
+    gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+    gsub(/([a-z\d])([A-Z])/,'\1_\2').
+    tr("-", "_").
+    downcase
+  end
+end
+
 module Artemis
   # It all started from a world
   class World
@@ -36,6 +46,12 @@ module Artemis
       # it can have other manager but only one for each manager type
       manager.world = self
       @managers[manager.class] = manager
+
+
+      accessor_name = manager.class.name.split('::').last.underscore
+      define_singleton_method(accessor_name) { @managers[manager.class] }
+
+      manager
     end
 
     def get_manager(manager_class)

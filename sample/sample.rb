@@ -6,6 +6,8 @@ class Sample
   def run 
     puts "Hello World! This is sample!"
     @world = Artemis::World.new
+    @world.add_manager Artemis::TagManager.new
+    puts @world.tag_manager
 
     @world.set_system(MovementSystem.new).setup
 
