@@ -91,6 +91,7 @@ module Artemis
       @active_entities.remove entity
       entity.system_class_indices.delete @system_index
       removed entity
+      puts "Removed #{entity} from #{self}" if @world.debug
     end
 
     def insert_to_system(entity)
@@ -108,7 +109,7 @@ module Artemis
     end
 
     def deleted(entity)
-      remove_from_system entity if entity.system_bits[@system_index]
+      remove_from_system entity if entity.system_class_indices.include? @system_index
     end
 
     def disabled(entity)

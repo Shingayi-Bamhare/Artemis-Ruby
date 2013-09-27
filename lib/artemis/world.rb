@@ -84,6 +84,7 @@ module Artemis
 
     def disable(e)
       @disabled.add(e)
+      puts "#{e} to disabled list" if @debug
     end
 
     def create_entity(*components)

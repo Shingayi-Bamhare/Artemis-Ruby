@@ -43,6 +43,7 @@ module Artemis
         @deleted
       else
         @entities.remove(e)
+        pus "remove #{e} from EM's @entities list"
         @disabled.delete(e.id)
         @active -= 1
         @deleted += 1
