@@ -96,8 +96,11 @@ module Artemis
     # this will only return false if an entity has been explicitly disabled.
     # 
     # @return if it's enabled
-    def is_enabled
+    def is_enabled?
       @entity_manager.is_enabled? id
+    end
+    def is_disabled?
+      !is_enabled?
     end
 
     # This is the preferred method to use when retrieving a component from a
