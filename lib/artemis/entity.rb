@@ -69,7 +69,7 @@ module Artemis
         component_type = ComponentType.type_for obj.class
       elsif obj.is_a? ComponentType
         component_type = obj
-      elsif obj.is_a? Class && obj <= Component
+      elsif obj.is_a?(Class) && obj <= Component
         component_type = ComponentType.type_for obj
       end
 
@@ -156,6 +156,5 @@ module Artemis
     def disable
       @world.disable self
     end
-
   end
 end

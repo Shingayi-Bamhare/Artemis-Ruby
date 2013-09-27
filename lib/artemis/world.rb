@@ -128,6 +128,8 @@ module Artemis
         bag.clear
       end
 
+      @cm.clean
+
       @systems.values.each do |system|
         system.process unless system.passive
       end

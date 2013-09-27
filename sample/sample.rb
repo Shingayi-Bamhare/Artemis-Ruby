@@ -11,9 +11,13 @@ class Sample
 
     @world.set_system(MovementSystem.new).setup
 
+    e =
     @world.create_entity(PositionComponent.new,
                          VelocityComponent.new,
-                         RotationComponent.new).add_to_world
+                         RotationComponent.new)
+    e.add_to_world
+
+    #e.remove_component RotationComponent
 
     game_loop
   end

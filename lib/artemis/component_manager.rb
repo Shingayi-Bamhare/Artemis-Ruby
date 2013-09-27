@@ -10,6 +10,7 @@ module Artemis
       component_class_indices = entity.component_class_indices
 
       component_class_indices.each do |index|
+        @components_by_type[index][entity.id].removed entity
         @components_by_type[index][entity.id] = nil
       end
 
@@ -24,10 +25,9 @@ module Artemis
     end
 
     def remove_component(entity, component_type)
-      if entity.component_class_indices.include? component_type.index
-        @components_by_type[component_type.index][entity.id] = nil
-        e.component_class_indices.delete component_type.index
-      end
+      @components_by_type[component_type.index][entity.id].removed entity
+      @components_by_type[component_type.index][entity.id] = nil
+      entity.component_class_indices.delete component_type.index
     end
 
     def get_components_by_type(component_type)
