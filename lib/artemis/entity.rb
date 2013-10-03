@@ -3,11 +3,19 @@ module Artemis
   # create new entities using World.
 
   class Entity
-    attr_reader :world, :uuid, :system_class_indices, :component_class_indices
+    @@next_index = 0
+    attr_reader :world, :id, :system_class_indices, :component_class_indices
 
     BIG_N = 1_000_000
-    def gen_uuid
-      (Time.now.to_f * BIG_N).to_i * BIG_N + rand(BIG_N)
+    def gen_id
+      #return (Time.now.to_f * BIG_N).to_i * BIG_N + rand(BIG_N)
+      id = @@next_index
+      @@next_index += 1
+      id
+    end
+
+    def uuid
+      @id 
     end
 
     def initialize(world)
@@ -16,7 +24,7 @@ module Artemis
       @component_manager = world.component_manager
       @system_class_indices = Array.new
       @component_class_indices = Array.new
-      @uuid = gen_uuid
+      @id = gen_id
     end
 
     # Make enitty ready for re-use.
@@ -24,11 +32,7 @@ module Artemis
     def reset
       @system_class_indices.clear
       @component_classes_indices.clear
-      @uuid = gen_uuid
-    end
-
-    def id
-      @uuid
+      @id = gen_id
     end
 
     def to_s
@@ -42,7 +46,7 @@ module Artemis
     #
     # @return this entity for chaining
     def add_component(component, component_type = nil)
-      raise "#{component.to_s} is not an instance of Artemis::Component" if !component.is_a?(Component)
+      #raise "#{component.to_s} is not an instance of Artemis::Component" if !component.is_a?(Component)
 
       component_type = ComponentType.type_for component.class unless component_type
 
@@ -76,7 +80,7 @@ module Artemis
       if component_type
         @component_manager.remove_component self, component_type
       else
-        raise "#{obj.to_s} is neither a Component object nor ComponentType object nor subclass of Component" 
+        #raise "#{obj.to_s} is neither a Component object nor ComponentType object nor subclass of Component" 
       end
 
       self
@@ -118,7 +122,7 @@ module Artemis
       if component_type
         return @component_manager.get_component self, component_type 
       else
-        raise "#{obj.to_s} is neither a ComponentType object nor an Component subclass"
+        #raise "#{obj.to_s} is neither a ComponentType object nor an Component subclass"
       end
 
     end

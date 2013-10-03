@@ -26,7 +26,7 @@ module Artemis
     end
 
     def array_from_argument_list(arg_list)
-      raise "must have at least 1 argument" if arg_list.length <= 0
+      #raise "must have at least 1 argument" if arg_list.length <= 0
 
       arg_list = arg_list[0] if arg_list.length == 1 && arg_list[0].is_a?(Array)
 
@@ -40,7 +40,7 @@ module Artemis
     # @return itself to be chained
     def add_component_classes_to_set(component_classes, set)
       component_classes.each do |component_class|
-        raise "#{component_class.to_s} is not a subclass of Component" if !component_class.is_a?(Class) || !(component_class <= Component)
+        #raise "#{component_class.to_s} is not a subclass of Component" if !component_class.is_a?(Class) || !(component_class <= Component)
 
         set << ComponentType.index_for(component_class)
       end 

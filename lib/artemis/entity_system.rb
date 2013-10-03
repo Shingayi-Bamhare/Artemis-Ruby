@@ -25,7 +25,7 @@ module Artemis
     def pre_process_entities
     end
 
-    def process
+    def process_system
       if check_processing
         pre_process_entities
         process_entities @active_entities

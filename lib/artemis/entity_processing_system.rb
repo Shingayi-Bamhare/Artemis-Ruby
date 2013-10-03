@@ -3,6 +3,7 @@ module Artemis
   # provided component types.
   class EntityProcessingSystem < EntitySystem
     def process_entities(entities)
+      #puts "------------ process_entities #{self}"
       entities.each { |entity| process_entity entity }
     end
 

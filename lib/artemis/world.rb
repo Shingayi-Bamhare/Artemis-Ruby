@@ -116,22 +116,31 @@ module Artemis
       !!systems.delete(system)
     end
 
-    def process
-      [:added, :changed, :deleted, :enabled, :disabled].each do |method_name|
-        bag = self.send(method_name)
-        bag.each_value do |entity|
-          (@managers.values + @systems.values).each do |observer|
-            observer.send(method_name, entity)
-          end
+    def process_world
+      #[:added, :changed, :deleted, :enabled, :disabled].each do |method_name|
+        #bag = self.send(method_name)
+      
+      bag = @added
+      bag.each_pair do |key, entity|
+        @managers.each_pair do |key, observer|
+          observer.added entity
         end
-
-        bag.clear
+        @systems.each_pair do |key, observer|
+          observer.added entity
+        end
+        #(@managers.values + @systems.values).each do |observer|
+        #observer.send(method_name, entity)
+        #end
       end
+
+      bag.clear
+      #end
 
       @cm.clean
 
-      @systems.values.each do |system|
-        system.process unless system.passive
+      #puts "----> WORLD START PROCESSING SYSTEMS"
+      @systems.each_pair do |key, system|
+        system.process_system unless system.passive
       end
     end
 

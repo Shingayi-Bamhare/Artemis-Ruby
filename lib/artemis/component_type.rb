@@ -15,8 +15,8 @@ module Artemis
     end
 
     def self.type_for(klass)
-      raise "#{klass.to_s} is not a subclass of Artemis::Component" if !klass.is_a?(Class) ||
-        !(klass <= Component)
+      #raise "#{klass.to_s} is not a subclass of Artemis::Component" if !klass.is_a?(Class) ||
+        #!(klass <= Component)
 
       component_type = @@component_types[klass]
       if (component_type == nil)
