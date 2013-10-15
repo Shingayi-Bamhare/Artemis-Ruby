@@ -4,6 +4,7 @@ module Artemis
 
   class Entity
     attr_reader :world, :uuid, :system_class_indices, :component_class_indices
+    attr_accessor :name
 
     BIG_N = 1_000_000
     def gen_uuid
