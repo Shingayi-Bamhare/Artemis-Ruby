@@ -69,29 +69,29 @@ Managers are used to manage entities & components.
 
 ### Progress
 
-- [ ] Aspect.java
+- [x] Aspect.java
 - [x] Component.java
-- [ ] ComponentManager.java
-- [ ] ComponentMapper.java
+- [x] ComponentManager.java
+- [x] ComponentMapper.java
 - [x] ComponentType.java
-- [ ] Entity.java **WIP**
-- [ ] EntityManager.java
-- [x] EntityObserver.java _don't see it's neccessary_
-- [ ] EntitySystem.java
+- [x] Entity.java
+- [x] EntityManager.java
+- [x] EntityObserver.java
+- [x] EntitySystem.java
 - [x] Manager.java
-- [ ] World.java
-- [ ] managers/GroupManager.java
+- [x] World.java
+- [x] managers/GroupManager.java
 - [ ] managers/PlayerManager.java
-- [ ] managers/TagManager.java
+- [x] managers/TagManager.java
 - [ ] managers/TeamManager.java
-- [x] utils/Bag.java _currently is ruby Array_
-- [ ] utils/FastMath.java
+- [x] utils/Bag.java _currently is ruby Hash_
+- [ ] utils/FastMath.java _won't need_
 - [x] utils/ImmutableBag.java _currently is Bag_
-- [ ] utils/Timer.java
-- [ ] utils/TrigLUT.java
-- [ ] utils/Utils.java
-- [ ] systems/DelayedEntityProcessingSystem.java
-- [ ] systems/EntityProcessingSystem.java
+- [ ] utils/Timer.java _won't need_
+- [ ] utils/TrigLUT.java _won't need_
+- [ ] utils/Utils.java _won't need_
+- [x] systems/DelayedEntityProcessingSystem.java
+- [x] systems/EntityProcessingSystem.java
 - [ ] systems/IntervalEntityProcessingSystem.java
 - [ ] systems/IntervalEntitySystem.java
 - [ ] systems/VoidEntitySystem.java
